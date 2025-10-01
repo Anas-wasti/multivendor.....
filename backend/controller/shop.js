@@ -31,7 +31,6 @@ router.post("/create-shop", upload.single("file"), async (req, resp, next) => {
           console.log(`✅ Deleted file: ${filename}`);
         } catch (err) {
           console.error(`⚠️ Failed to delete file (${filename}):`, err.message);
-          // Optional: Don't block user creation just because of file deletion failure
         }
       } else {
         console.warn("⚠️ No file found to delete.");
@@ -53,7 +52,7 @@ router.post("/create-shop", upload.single("file"), async (req, resp, next) => {
       zipCode: req.body.zipCode,
     };
     const activationToken = createActivationToken(seller);
-    const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
+    const activationUrl = `https://multivendor-iota-seven.vercel.app/seller/activation/${activationToken}`;
 
     await sendMail({
       email: seller.email,
