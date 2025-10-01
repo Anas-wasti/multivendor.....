@@ -9,16 +9,18 @@ const path = require("path");
 require("dotenv").config({
   path: path.join("backend/config/.env"),
 });
-app.use(express.json());
-app.use(cookieParser());
+
 app.use(
   cors({
-    origin: "https://multivendor-iota-seven.vercel.app/",
+    origin: "https://multivendor-iota-seven.vercel.app",
     credentials: true,
   })
 );
-app.use("/", express.static("uploads"));
-app.use("/", (req, res) => {
+
+app.use(express.json());
+app.use(cookieParser());
+app.use("/", express.static(path.join(__dirname,"./uploads")));
+app.use("/test", (req, res) => {
   res.send("Hello world!");
 });
 app.use(bodyParser.urlencoded({ extended: true }));

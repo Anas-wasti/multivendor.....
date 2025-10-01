@@ -4,10 +4,10 @@ import { server } from "../server";
 
 const CountDown = ({ data }) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  const [deleted, setDeleted] = useState(false); // guard
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
-    if (deleted) return; 
+    if (deleted) return;
 
     const timer = setInterval(() => {
       const newTimeLeft = calculateTimeLeft();
@@ -16,7 +16,7 @@ const CountDown = ({ data }) => {
       if (Object.keys(newTimeLeft).length === 0 && !deleted) {
         axios
           .delete(`${server}/delete-shop-event/${data._id}`)
-          .then(() => setDeleted(true)) // mark deleted
+          .then(() => setDeleted(true))
           .catch((err) => console.error(err));
         clearInterval(timer);
       }

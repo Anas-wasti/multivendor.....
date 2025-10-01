@@ -58,7 +58,7 @@ router.post("/create-user", upload.single("file"), async (req, resp, next) => {
     };
 
     const activationToken = createActivationToken(user);
-    const activationUrl = `http://localhost:3000/activation/${activationToken}`;
+    const activationUrl = `https://multivendor-iota-seven.vercel.app/activation/${activationToken}`;
 
     await sendMail({
       email: user.email,
@@ -199,44 +199,6 @@ router.get(
     }
   })
 );
-
-// update user info
-// router.put(
-//   "/update-user-info",
-//   isAuthenticated,
-//   catchAsyncError(async (req, res, next) => {
-//     try {
-//       const { name, email, phoneNumber, password } = req.body;
-
-//       const user = await User.findById(req.user._id).select("+password");
-
-//       if (!user) {
-//         return next(new ErrorHandler("User not found", 400));
-//       }
-
-//       const isPasswordValid = await User.comparePassword(password);
-
-//       if (!isPasswordValid) {
-//         return next(
-//           new ErrorHandler("Please provide the correct information", 400)
-//         );
-//       }
-
-//       if (name) user.name = name;
-//       if (email) user.email = email;
-//       if (phoneNumber) user.phoneNumber = phoneNumber;
-
-//       await user.save();
-
-//       res.status(200).json({
-//         success: true,
-//         user,
-//       });
-//     } catch (error) {
-//       return next(new ErrorHandler(error.message, 500));
-//     }
-//   })
-// );
 
 // update user info
 router.put(
