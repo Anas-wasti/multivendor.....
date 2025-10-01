@@ -57,7 +57,7 @@ router.post("/create-shop", upload.single("file"), async (req, resp, next) => {
     await sendMail({
       email: seller.email,
       subject: "Activate your Shop",
-      message: `Hello ${seller.name}, please click the link to activate your Shop: ${activationUrl}`,
+      message: `Hello ${seller.name}, Please click the link to activate your Shop: ${activationUrl}`,
     });
 
     resp.status(201).json({
