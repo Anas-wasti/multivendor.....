@@ -11,7 +11,7 @@ app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 
 process.on("uncaughtException", (err) => {
   console.log(`Error, ${err.message}`);
-  console.log(`shutting down the server for handling uncaught exception`);
+  console.log(`shuting down the server for handling uncaught exception`);
 });
 
 // CONFIG
