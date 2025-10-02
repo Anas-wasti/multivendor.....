@@ -1,12 +1,10 @@
 {
   "version": 2,
   "name": "e-shop",
-  "functions": {
-    "api/server.js": {
-      "runtime": "@vercel/node"
-    }
-  },
+  "builds": [
+    { "src": "server.js", "use": "@vercel/node" }
+  ],
   "routes": [
-    { "src": "/(.*)", "dest": "api/server.js" }
+    { "src": "/(.*)", "dest": "server.js" }
   ]
 }
