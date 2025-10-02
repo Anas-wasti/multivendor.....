@@ -238,7 +238,7 @@ const ProductDetails = ({ data }) => {
                     </div>
                   </div>
 
-                  {/* ADD TO CART BUTTON */}
+                  {/* ADD T CART BUTTON */}
                   <div
                     className={`${styles.button} !mt-0 !rounded !h-11 flex items-center cursor-pointer`}
                     onClick={() => addToCartHandler(data._id)}
