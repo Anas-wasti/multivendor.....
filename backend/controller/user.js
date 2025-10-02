@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const sendToken = require("../utils/jwtToken");
 const router = express.Router();
+const cloudinary = require("cloudinary");
 const User = require("../model/user");
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendMail = require("../utils/sendMail");
@@ -33,27 +34,31 @@ router.post("/create-user", upload.single("file"), async (req, resp, next) => {
         }`;
 
         try {
-          // Try to delete the uploaded file
           await fs.promises.unlink(filePath);
-          console.log(`✅ Deleted file: ${filename}`);
+          console.log(`Deleted file: ${filename}`);
         } catch (err) {
           console.error(`⚠️ Failed to delete file (${filename}):`, err.message);
-          // Optional: Don't block user creation just because of file deletion failure
         }
       } else {
-        console.warn("⚠️ No file found to delete.");
+        console.warn("No file found to delete.");
       }
 
       return next(new ErrorHandler("User already exists", 400));
     }
 
+    const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+      folder: "avatars",
+    });
+
     const fileUrl = path.join("uploads", req.file.filename);
+
     const user = {
       name,
       email,
       password,
       avatar: {
-        url: fileUrl,
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
       },
     };
 

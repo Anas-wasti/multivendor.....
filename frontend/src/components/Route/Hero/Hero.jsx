@@ -7,7 +7,8 @@ const Hero = () => {
     <div
       className={`relative min-h-[70vh] 800px:min-h-[80vh] w-full bg-no-repeat ${styles.normalFlex}`}
       style={{
-        backgroundImage: "url(https://themes.rslahmed.dev/rafcart/assets/images/banner-2.jpg)",
+        backgroundImage:
+          "url(https://themes.rslahmed.dev/rafcart/assets/images/banner-2.jpg)",
         height: "400px",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -21,12 +22,20 @@ const Hero = () => {
           Best collection for <br /> home decoration
         </h1>
         <p className="pt-5 text-[16px] font-Poppins font-[400] text-[#000000ba]">
-          Shop Customer Data is a detailed analysis of a imaginative shop's ideal customers. It helps <br /> a business to better understand its customers. The owner of a shop gets information <br /> about Customers through membership cards.<a className="font-Poppins text-red-600 cursor-not-allowed">[ ...Anaswasti... ]</a>
+          Shop Customer Data is a detailed analysis of a imaginative shop's
+          ideal customers. It helps <br /> a business to better understand its
+          customers. The owner of a shop gets information <br /> about Customers
+          through membership cards.
+          <a className="font-Poppins text-red-600 cursor-not-allowed">
+            [ ...Anaswasti... ]
+          </a>
         </p>
-        <Link to='/products' className="inline-block">
-            <div className={`${styles.button} mt-5`}>
-                <span className="text-white font-Poppins text-[18px]">Shop Now</span>
-            </div>
+        <Link to="/products" className="inline-block">
+          <div className={`${styles.button} mt-5`}>
+            <span className="text-white font-Poppins text-[18px]">
+              Shop Now
+            </span>
+          </div>
         </Link>
       </div>
     </div>
