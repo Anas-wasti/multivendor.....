@@ -211,7 +211,7 @@ const CreateProduct = () => {
             {images &&
               images.map((i) => (
                 <img
-                  src={URL.createObjectURL(i)}
+                  src={i}
                   key={i}
                   alt=""
                   className="h-[120px] w-[120px] object-cover m-2"
