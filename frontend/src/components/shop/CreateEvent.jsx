@@ -57,30 +57,58 @@ const CreateEvent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newForm = new FormData();
 
-    images.forEach((image) => {
-      newForm.append("images", image);
-    });
-    newForm.append("name", name);
-    newForm.append("description", description);
-    newForm.append("category", category);
-    newForm.append("tags", tags);
-    newForm.append("originalPrice", originalPrice);
-    newForm.append("discountPrice", discountPrice);
-    newForm.append("stock", stock);
-    newForm.append("shopId", seller._id);
-    newForm.append("Start_Date", startDate.toISOString());
-    newForm.append("Finish_Date", endDate.toISOString());
+    if (!images.length) {
+      return toast.error("Please upload at least one image!");
+    }
 
-    dispatch(createevent(newForm));
+    if (!startDate || !endDate) {
+      return toast.error("Please select start and end dates!");
+    }
+
+    const eventData = {
+      name,
+      description,
+      category,
+      tags,
+      originalPrice,
+      discountPrice,
+      stock,
+      shopId: seller._id,
+      start_Date: startDate.toISOString(),
+      Finish_Date: endDate.toISOString(),
+      images,
+    };
+
+    dispatch(createevent(eventData));
   };
-  
 
-  const handleImageSubmit = (e) => {
+  const handleImageSubmit = async (e) => {
     e.preventDefault();
-    let files = Array.from(e.target.files);
-    setImages((prevImages) => [...prevImages, ...files]);
+    const files = Array.from(e.target.files);
+
+    for (let file of files) {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "ecommrence");
+      data.append("cloud_name", "du6xqru9r");
+
+      try {
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/du6xqru9r/image/upload",
+          data
+        );
+
+        if (res.data.secure_url) {
+          setImages((prev) => [...prev, res.data.secure_url]); // ✅ store Cloudinary URLs
+        } else {
+          toast.error("Image upload failed!");
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error("Error uploading image");
+      }
+    }
   };
 
   return (
