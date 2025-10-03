@@ -32,23 +32,24 @@ const CreateProduct = () => {
     }
   }, [dispatch, error, success]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newForm = new FormData();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    images.forEach((image) => {
-      newForm.append("images", image);
-    });
-    newForm.append("name", name);
-    newForm.append("description", description);
-    newForm.append("category", category);
-    newForm.append("tags", tags);
-    newForm.append("originalPrice", originalPrice);
-    newForm.append("discountPrice", discountPrice);
-    newForm.append("stock", stock);
-    newForm.append("shopId", seller._id);
-    dispatch(createProduct(newForm));
+  const productData = {
+    name,
+    description,
+    category,
+    tags,
+    originalPrice,
+    discountPrice,
+    stock,
+    shopId: seller._id,
+    images, // these are already Cloudinary URLs
   };
+
+  dispatch(createProduct(productData));
+};
+
 
   // const handleImageSubmit = (e) => {
   //   e.preventDefault();
