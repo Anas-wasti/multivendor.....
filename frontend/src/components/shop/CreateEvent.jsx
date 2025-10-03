@@ -5,6 +5,8 @@ import { categoriesData } from "../../static/data";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { createevent } from "../../redux/actions/event";
+import axios from "axios";
+
 const CreateEvent = () => {
   const { seller } = useSelector((state) => state.seller);
   const { success, error } = useSelector((state) => state.events);
@@ -18,7 +20,7 @@ const CreateEvent = () => {
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState("");
   const [originalPrice, setOriginalPrice] = useState("");
-  const [discountPrice, setDiscouontPrice] = useState("");
+  const [discountPrice, setDiscountPrice] = useState("");
   const [stock, setStock] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -37,6 +39,7 @@ const CreateEvent = () => {
     const endDate = new Date(e.target.value);
     setEndDate(endDate);
   };
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -100,7 +103,7 @@ const CreateEvent = () => {
         );
 
         if (res.data.secure_url) {
-          setImages((prev) => [...prev, res.data.secure_url]); // ✅ store Cloudinary URLs
+          setImages((prev) => [...prev, res.data.secure_url]);
         } else {
           toast.error("Image upload failed!");
         }
@@ -201,7 +204,7 @@ const CreateEvent = () => {
             type="text"
             name="number"
             value={discountPrice}
-            onChange={(e) => setDiscouontPrice(e.target.value)}
+            onChange={(e) => setDiscountPrice(e.target.value)}
             className="border mt-2 appearance-none block w-full px-3  h-[35px] border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             placeholder="Enter Discount Price"
           />
@@ -226,7 +229,7 @@ const CreateEvent = () => {
           </label>
           <input
             type="date"
-            name="=start-date"
+            name="start-date"
             id="start-date"
             min={today}
             value={startDate ? startDate.toISOString().slice(0, 10) : ""}
@@ -242,7 +245,7 @@ const CreateEvent = () => {
           </label>
           <input
             type="date"
-            name="=end-Date"
+            name="end-date"
             id="end-date"
             min={minEndDate}
             value={endDate ? endDate.toISOString().slice(0, 10) : ""}
@@ -268,10 +271,10 @@ const CreateEvent = () => {
               <AiOutlinePlusCircle size={30} color="#555" className="mt-2" />
             </label>
             {images &&
-              images.map((i) => (
+              images.map((i, index) => (
                 <img
-                  src={URL.createObjectURL(i)}
-                  key={i}
+                  src={i}
+                  key={index}
                   alt=""
                   className="h-[120px] w-[120px] object-cover m-2"
                 />
