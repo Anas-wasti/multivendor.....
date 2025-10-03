@@ -82,11 +82,11 @@ const CreateEvent = () => {
       Finish_Date: endDate.toISOString(),
       images,
     };
+    console.log(eventData);
 
     dispatch(createevent(eventData));
   };
-  console.log(seller)
-  console.log(eventData);
+  console.log(seller);
   const handleImageSubmit = async (e) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
