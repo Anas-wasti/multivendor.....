@@ -2,20 +2,20 @@ import { server } from "../../server";
 import axios from "axios";
 
 // create event
-
 export const createevent = (eventData) => async (dispatch) => {
   try {
     dispatch({
       type: "eventCreateRequest",
     });
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(
       `${server}/event/create-event`,
       eventData,
       config
     );
+
     dispatch({
       type: "eventCreateSuccess",
       payload: data.event,
@@ -23,7 +23,7 @@ export const createevent = (eventData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "eventCreateFail",
-      payload: error.response.data.message,
+      payload: error.response?.data?.message || error.message,
     });
   }
 };
