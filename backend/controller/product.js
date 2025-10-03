@@ -13,7 +13,7 @@ const path = require("path");
 // CREATE A NEW  PRODUCT
 router.post(
   "/create-product",
-  catchAsyncErrors(async (req, res, next) => {
+  catchAsyncError(async (req, res, next) => {
     const {
       shopId,
       name,
