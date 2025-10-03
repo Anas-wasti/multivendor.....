@@ -49,11 +49,39 @@ const CreateProduct = () => {
     dispatch(createProduct(newForm));
   };
 
-  const handleImageSubmit = (e) => {
-    e.preventDefault();
-    let files = Array.from(e.target.files);
-    setImages((prevImages) => [...prevImages, ...files]);
+  // const handleImageSubmit = (e) => {
+  //   e.preventDefault();
+  //   let files = Array.from(e.target.files);
+  //   setImages((prevImages) => [...prevImages, ...files]);
+  // };
+
+  const handleImageSubmit = async (e) => {
+    const files = Array.from(e.target.files);
+
+    for (let file of files) {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "ecommrence"); // must exist in Cloudinary
+      data.append("cloud_name", "du6xqru9r");
+
+      try {
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/du6xqru9r/image/upload",
+          data
+        );
+
+        if (res.data.secure_url) {
+          setImages((prev) => [...prev, res.data.secure_url]);
+        } else {
+          toast.error("Image upload failed!");
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error("Error uploading image");
+      }
+    }
   };
+
   return (
     <div className=" w-[90%] 800px:w-[50%] bg-white shadow h-[80vh] p-3 overflow-y-scroll">
       <h5 className="text-xl font-Poppins text-center">Create Product</h5>

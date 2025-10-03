@@ -13,29 +13,36 @@ const path = require("path");
 // CREATE A NEW  PRODUCT
 router.post(
   "/create-product",
-  upload.array("images"),
-  catchAsyncError(async (req, resp, next) => {
-    try {
-      const shopId = req.body.shopId;
-      const shop = await Shop.findById(shopId);
-      if (!shop) {
-        return next(new ErrorHandler("Shop id is invalid", 400));
-      } else {
-        const files = req.files;
-        const imageUrls = files.map((file) => `${file.filename}`);
-        const productData = req.body;
-        productData.images = imageUrls;
-        productData.shop = shop;
+  catchAsyncErrors(async (req, res, next) => {
+    const {
+      shopId,
+      name,
+      description,
+      category,
+      tags,
+      originalPrice,
+      discountPrice,
+      stock,
+      images,
+    } = req.body;
 
-        const product = await Product.create(productData);
-        resp.status(201).json({
-          success: true,
-          product,
-        });
-      }
-    } catch (error) {
-      return next(new ErrorHandler(error, 400));
-    }
+    const shop = await Shop.findById(shopId);
+    if (!shop) return next(new ErrorHandler("Shop Id is invalid!", 400));
+
+    const product = await Product.create({
+      name,
+      description,
+      category,
+      tags,
+      originalPrice,
+      discountPrice,
+      stock,
+      shopId,
+      shop,
+      images: images.map((img) => (typeof img === "string" ? img : img.url)),
+    });
+
+    res.status(201).json({ success: true, product });
   })
 );
 
