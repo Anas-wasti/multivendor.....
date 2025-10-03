@@ -66,7 +66,7 @@ const ProductCard = ({ data, isEvents }) => {
   };
 
   // defensive image/shop access
-  const imgUrl = data?.images[0]?.url || "";
+  const imgUrl = data?.images[0];
   const shopName = data?.shop?.name || "";
   const discountPrice = data?.discount_price;
   const price = data?.price;
