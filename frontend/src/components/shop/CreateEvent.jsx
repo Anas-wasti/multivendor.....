@@ -78,7 +78,7 @@ const CreateEvent = () => {
       discountPrice,
       stock,
       shopId: seller._id,
-      start_Date: startDate.toISOString(),
+      Start_Date: startDate.toISOString(),
       Finish_Date: endDate.toISOString(),
       images,
     };
