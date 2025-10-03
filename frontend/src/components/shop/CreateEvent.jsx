@@ -85,7 +85,8 @@ const CreateEvent = () => {
 
     dispatch(createevent(eventData));
   };
-
+  console.log(seller)
+  console.log(eventData);
   const handleImageSubmit = async (e) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
