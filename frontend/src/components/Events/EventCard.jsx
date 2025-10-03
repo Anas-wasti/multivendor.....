@@ -13,8 +13,6 @@ const EventCard = ({ active, data }) => {
   if (!data) return null;
 
   const imgSrc = data?.images?.[0]
-    ? `${backend_url}${data.images[0]}`
-    : "/placeholder.png";
 
   const originalPrice =
     data?.originalPrice !== undefined ? `${data.originalPrice}$` : "-";
