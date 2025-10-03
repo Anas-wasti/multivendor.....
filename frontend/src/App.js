@@ -165,9 +165,9 @@ const App = () => {
             <Route
               path="/shop/preview/:id"
               element={
-                // <SellerProtectedRout isSeller={isSeller}>
+          
                 <ShopPreviewPage />
-                // </SellerProtectedRout>
+        
               }
             />
             {/* SHOP ROUTE */}
@@ -206,10 +206,10 @@ const App = () => {
               }
             />
             <Route
-              path="/dashboard-orders"
+              path="/dashboard-products"
               element={
                 <SellerProtectedRout isSeller={isSeller}>
-                  <ShopAllOrders />
+                  < ShopAllProducts />
                 </SellerProtectedRout>
               }
             />
