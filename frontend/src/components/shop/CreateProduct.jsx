@@ -5,6 +5,7 @@ import { categoriesData } from "../../static/data";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { createProduct } from "../../redux/actions/product";
 import { toast } from "react-toastify";
+import axios from "axios";
 const CreateProduct = () => {
   const { seller } = useSelector((state) => state.seller);
   const { success, error } = useSelector((state) => state.products);
@@ -27,7 +28,7 @@ const CreateProduct = () => {
     if (success) {
       toast.success("Product created Successfuly");
       navigate("/dashboard");
-      window.location.reload()
+      window.location.reload();
     }
   }, [dispatch, error, success]);
 
